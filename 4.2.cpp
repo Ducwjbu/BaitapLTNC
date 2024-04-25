@@ -2,31 +2,30 @@
 
 using namespace std;
 
-bool kt(string s, int len){
-	for(int i = 0;i<=len/2;i++){
-		if(s[i] != s[len - i-1]){
-			return false;
-		}
-	}
-}
-
-int vt(string s){
-	string u = s;
-	int len = s.length();
-	for(int i = 0;i<len ;i++){
-		for(int j = i;j<len-1;j++){
-			s[j] = s[j+1];
-		}
-		if(kt(s, len-1) == true){
-			return i;
-		}
-	}
-	return 0;
-}
 int main(){
-	int n; cin >> n;
-	for(int i = 0;i<n;i++){
-		string s; cin >> s;
-		cout << vt(s);
-	}
+    int n; cin >> n;
+    int a[n];
+    int b[n];
+    for(int i = 0;i<n;i++){
+        cin >> a[i];
+        b[i] = 0;
+    }
+    for(int i =0;i<n;i++){
+        if(a[i] != -1){
+            b[i]++;
+        }
+        for(int j = i+1;j<n;j++){
+            if(a[i] == a[j] && a[i] != -1){
+                b[i]++;
+                a[j] = -1;
+            }
+        }
+    }
+    int max = b[0];
+    for(int i =0;i<n;i++){
+        if(b[i] > max){
+            max = b[i];
+        }
+    }
+    cout << n - max;
 }
